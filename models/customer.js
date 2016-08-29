@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     classMethods: {
       associate: models => {
-        customer.belongsTo(models.Address, { foreignKey: 'address_id' });
-        customer.belongsTo(models.Store, { foreignKey: 'store_id' });
+        customer.belongsTo(models.Address, { foreignKey: { name: 'address_id', allowNull: false } });
+        customer.belongsTo(models.Store, { foreignKey: { name: 'store_id', allowNull: false } });
       }
     }
   });

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     classMethods: {
       associate: models => {
-        country.hasMany(models.City, { foreignKey: 'country_id' });
+        country.hasMany(models.City, { foreignKey: { name: 'country_id', allowNull: false } });
       }
     }
   });

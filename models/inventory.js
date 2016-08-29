@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     classMethods: {
       associate: models => {
-        inventory.belongsTo(models.Film, { foreignKey: 'film_id' });
-        inventory.belongsTo(models.Store, { foreignKey: 'store_id' });
+        inventory.belongsTo(models.Film, { foreignKey: { name: 'film_id', allowNull: false } });
+        inventory.belongsTo(models.Store, { foreignKey: { name: 'store_id', allowNull: false } });
       }
     }
   });

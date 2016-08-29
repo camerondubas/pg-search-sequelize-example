@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     classMethods: {
       associate: models => {
-        city.belongsTo(models.Country, { foreignKey: 'country_id' });
-        city.hasMany(models.Address, { foreignKey: 'city_id' });
+        city.belongsTo(models.Country, { foreignKey: { name: 'country_id', allowNull: false } });
+        city.hasMany(models.Address, { foreignKey: { name: 'city_id', allowNull: false } });
       }
     }
   });

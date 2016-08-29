@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     classMethods: {
       associate: models => {
-        address.belongsTo(models.City, { foreignKey: 'city_id' });
-        address.hasMany(models.Staff, { foreignKey: 'staff_id' });
+        address.belongsTo(models.City, { foreignKey: { name: 'city_id', allowNull: false } });
+        address.hasMany(models.Staff, { foreignKey: { name: 'staff_id', allowNull: false } });
         address.hasMany(models.Store, { foreignKey: { name: 'address_id', allowNull: false } });
-        address.hasMany(models.Customer, { foreignKey: 'address_id' });
+        address.hasMany(models.Customer, { foreignKey: { name: 'address_id', allowNull: false } });
       }
     }
   });

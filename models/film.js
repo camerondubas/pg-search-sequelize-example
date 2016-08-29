@@ -24,9 +24,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     classMethods: {
       associate: models => {
-        film.belongsToMany(models.Store, {through: models.Inventory, as: 'Stores', foreignKey: 'film_id', otherKey: 'store_id'});
-        film.hasMany(models.Inventory, { foreignKey: 'film_id' });
-        film.belongsTo(models.Language, { as: 'Language', foreignKey: 'language_id' });
+        film.belongsToMany(models.Store, {
+          through: models.Inventory,
+          as: 'Stores',
+          foreignKey: {
+            name: 'film_id',
+            allowNull: false
+          },
+          otherKey: 'store_id'
+        });
+        film.hasMany(models.Inventory, { foreignKey: { name: 'film_id', allowNull: false } });
+        film.belongsTo(models.Language, { as: 'Language', foreignKey: { name: 'language_id', allowNull: false } });
         film.belongsTo(models.Language, { as: 'OriginalLanguage', foreignKey: 'original_language_id' });
       }
     }

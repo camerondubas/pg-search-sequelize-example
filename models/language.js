@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     classMethods: {
       associate: models => {
-        language.hasMany(models.Film, { as: 'Language', foreignKey: 'language_id' });
+        language.hasMany(models.Film, { as: 'Language', foreignKey: { name: 'language_id', allowNull: false } });
         language.hasMany(models.Film, { as: 'OriginalLanguage', foreignKey: 'original_language_id' });
       }
     }
