@@ -1,0 +1,13 @@
+/*
+SELECT "film"."film_id",
+    setweight(to_tsvector("film"."title"), 'A') ||
+    setweight(to_tsvector(coalesce("film"."description", '')), 'B') ||
+    setweight(to_tsvector(coalesce("film"."special_features"::TEXT, '')), 'C') ||
+    setweight(to_tsvector("film"."rental_duration"::TEXT), 'C') ||
+    setweight(to_tsvector("film"."rental_rate"::TEXT), 'C') ||
+    setweight(to_tsvector(coalesce("film"."release_year"::TEXT, '')), 'C') ||
+    setweight(to_tsvector("film"."replacement_cost"::TEXT), 'C') ||
+    setweight(to_tsvector(coalesce("film"."length"::TEXT, '')), 'C') AS document
+FROM "film"
+LEFT OUTER JOIN "film" ON "film"."undefined" = "undefined";
+ */
