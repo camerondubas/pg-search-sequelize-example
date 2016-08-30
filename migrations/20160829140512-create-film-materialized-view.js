@@ -3,16 +3,15 @@ let QueryGenerator = require('../lib/queryGenerator');
 let models = require('../models');
 module.exports = {
   up: queryInterface => QueryGenerator.createMaterializedView(queryInterface, 'film_materialized_view', models.Film, {
-    attributes: {
-      title: 'A',
-      description: 'B',
-      special_features: 'C',
-      rental_duration: 'C',
-      rental_rate: 'C',
-      release_year: 'C',
-      replacement_cost: 'C',
-      length: 'C'
-    },
+    title: 'A',
+    description: 'B',
+    special_features: 'C',
+    rental_duration: 'C',
+    rental_rate: 'C',
+    release_year: 'C',
+    replacement_cost: 'C',
+    length: 'C'
+  }, {
     include: [
       {
         model: models.Language,

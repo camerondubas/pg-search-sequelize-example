@@ -3,11 +3,10 @@ let QueryGenerator = require('../lib/queryGenerator');
 let models = require('../models');
 module.exports = {
   up: queryInterface => QueryGenerator.createMaterializedView(queryInterface, 'customer_materialized_view', models.Customer, {
-    attributes: {
-      first_name: 'A',
-      last_name: 'A',
-      email: 'A'
-    },
+    first_name: 'A',
+    last_name: 'A',
+    email: 'A'
+  }, {
     include: [
       {
         model: models.Store,
