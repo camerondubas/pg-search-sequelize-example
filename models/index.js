@@ -21,6 +21,10 @@ Object.keys(models).forEach(key => {
   if ('associate' in model) {
     model.associate(models);
   }
+
+  if (model.options.referenceModel) {
+    model.referenceModel = models[model.options.referenceModel];
+  }
 });
 
 models.sequelize = sequelize;
