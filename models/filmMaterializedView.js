@@ -6,10 +6,12 @@ module.exports = (sequelize, DataTypes) => sequelize.define('FilmMaterializedVie
   description: DataTypes.TEXT,
   releaseYear: DataTypes.INTEGER,
   rating: DataTypes.STRING,
+  document: DataTypes.TEXT
 }, {
   tableName: 'film_materialized_view',
   referenceModel: 'Film',
   timestamps: false,
+  search: true,
   defaultScope: {
     attributes: {
       exclude: ['id']
