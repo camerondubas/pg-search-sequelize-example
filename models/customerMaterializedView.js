@@ -2,10 +2,10 @@
 
 module.exports = (sequelize, DataTypes) => sequelize.define('CustomerMaterializedView', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, field: 'customer_id'},
-  firstName: { type: DataTypes.STRING, field: 'first_name'},
-  lastName: { type: DataTypes.TEXT, field: 'last_name'},
+  firstName: DataTypes.STRING,
+  lastName: DataTypes.TEXT,
   email: DataTypes.INTEGER,
-  active: DataTypes.STRING,
+  activeBoolean: DataTypes.STRING,
   document: DataTypes.TEXT
 }, {
   tableName: 'customer_materialized_view',
