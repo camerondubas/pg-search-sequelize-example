@@ -3,6 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   let store = sequelize.define('Store', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, field: 'store_id' },
+    name: {type: DataTypes.STRING(45), allowNull: false },
     lastUpdate: { type: DataTypes.DATE, allowNull: false, field: 'last_update' }
   }, {
     tableName: 'store',
