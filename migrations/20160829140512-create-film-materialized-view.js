@@ -18,6 +18,7 @@ module.exports = {
         model: models.Language,
         foreignKey: 'language_id',
         targetKey: 'language_id',
+        associationType: 'belongsTo',
         attributes: {
           name: 'C'
         }
@@ -27,6 +28,7 @@ module.exports = {
         as: 'original_language',
         targetKey: 'language_id',
         foreignKey: 'original_language_id',
+        associationType: 'belongsTo',
         attributes: {
           name: 'C'
         }
