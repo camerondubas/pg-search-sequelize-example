@@ -24,6 +24,16 @@ Object.keys(models).forEach(key => {
   if ('referenceModel' in model.options) model.referenceModel = models[model.options.referenceModel];
 
   if ('search' in model.options) new SearchModel(model);
+
+  if ('customHooks' in model.options && 'afterSave' in model.options.customHooks) {
+    let callback = () => model.options.customHooks.afterSave(models);
+    model.afterCreate(callback);
+    model.afterBulkCreate(callback);
+    model.afterDestroy(callback);
+    model.afterBulkDestroy(callback);
+    model.afterUpdate(callback);
+    model.afterBulkUpdate(callback);
+  }
 });
 
 models.sequelize = sequelize;

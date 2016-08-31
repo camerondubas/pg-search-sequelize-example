@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'language',
     timestamps: false,
+    customHooks: {
+      afterSave: models => models.FilmMaterializedView.refresh()
+    },
     classMethods: {
       associate: models => {
         language.hasMany(models.Film, { as: 'Language', foreignKey: { name: 'language_id', allowNull: false } });

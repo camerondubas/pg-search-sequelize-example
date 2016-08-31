@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'store',
     timestamps: false,
+    customHooks: {
+      afterSave: models => models.CustomerMaterializedView.refresh()
+    },
     classMethods: {
       associate: models => {
         store.belongsToMany(models.Film, {

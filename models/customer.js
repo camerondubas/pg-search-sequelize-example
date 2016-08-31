@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'customer',
     timestamps: false,
+    customHooks: {
+      afterSave: models => models.CustomerMaterializedView.refresh()
+    },
     classMethods: {
       associate: models => {
         customer.belongsTo(models.Address, { foreignKey: { name: 'address_id', allowNull: false } });

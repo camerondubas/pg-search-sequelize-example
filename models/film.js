@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
         exclude: ['fulltext']
       }
     },
+    customHooks: {
+      afterSave: models => models.FilmMaterializedView.refresh()
+    },
     classMethods: {
       associate: models => {
         film.belongsToMany(models.Store, {
