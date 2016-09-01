@@ -1,8 +1,8 @@
 'use strict';
-let QueryGenerator = require('../lib/queryGenerator');
+let QueryInterface = require('pg-search-sequelize').QueryInterface;
 let models = require('../models');
 module.exports = {
-  up: queryInterface => QueryGenerator.createMaterializedView(queryInterface, 'film_materialized_view', models.Film, {
+  up: queryInterface => new QueryInterface(queryInterface).createMaterializedView('film_materialized_view', models.Film, {
     title: 'A',
     description: 'B',
     special_features: 'C',
@@ -35,5 +35,5 @@ module.exports = {
     ]
   }),
 
-  down: queryInterface => QueryGenerator.dropMaterializedView(queryInterface, 'film_materialized_view')
+  down: queryInterface => new QueryInterface(queryInterface).dropMaterializedView('film_materialized_view')
 };
