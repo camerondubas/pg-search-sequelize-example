@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:db:migrate": "sequelize db:migrate --migrations-path ./migrations/ --config ./config/sequelize.js",
+    "start:db:migrate-undo": "sequelize db:migrate:undo --migrations-path ./migrations/ --config ./config/sequelize.js",
     "test": "mocha test.js"
   },
   "repository": {
@@ -33,6 +34,7 @@
     "debug": "~2.2.0",
     "express": "~4.14.0",
     "pg": "~6.1.0",
+    "pg-search-sequelize": "0.0.2",
     "sequelize": "~3.24.1"
   },
   "devDependencies": {
