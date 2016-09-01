@@ -1,6 +1,6 @@
 let fs = require('fs');
 let config = require('../config/sequelize');
-let SearchModel = require('../lib/searchModel');
+let SearchModel = require('pg-search-sequelize');
 let Sequelize = require('sequelize');
 let sequelize = new Sequelize(config.database, config.username, config.password, config);
 
