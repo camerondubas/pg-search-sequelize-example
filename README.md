@@ -1,112 +1,43 @@
-# Sequelize Postgres Search
+# PG Search - Sequelize Example
 
-Postgres full-text search in Node.js using sequelize as its ORM.
+Demonstration of how to use the `pg-search-sequelize` library search a film stores database's films and customers.
 
-# Install
+# Demo
 
-```bash
-npm i pg-search-sequelize
-```
+Try out this example's demo [here](https://project-demo.herokuapp.com/search).
 
-# Usage
+# Run it locally
 
-After you create and define your materialized view model, which you can also do with this library, you would simply run:
-```js
-models.Film.searchByText('Mind'); // Returns "A Beautiful Mind" and "Eternal Sunshine of the Spotless Mind"
+Prerequisites: Node.js `v6.0.0+` and docker.
 
-// The following command searches for instances that match the search query, 
-// filters by those with releaseDate later than 2002, and orders the results by name field
-models.Film.searchByText('Mind releaseDate:>2002 order:name'); // Returns only "Eternal Sunshine of the Spotless Mind"
-
-// Or if you don't like strings, you can pass those properties in a JSON object
-// The following returns the same as the code above; i.e. "Eternal Sunshine of the Spotless Mind"
-models.Film.search('Mind', {
-    where: { 
-        releaseDate: {operator: '>', value: 2002} 
-    }, 
-    order: [['name', 'ASC']]
-}
-```
-
-Now that you got a sneak peek of what this library enables you at the end, let's get to the setup steps:
-
-### 1. Create Materialized View
-
-If you use the sequelize migrations tool, you can use the `createMaterializedView(queryInterface, name, referenceModel, attributes, options)` helper function provided by this library like so:
+To start the server
 
 ```js
-const QueryGenerator = require('../lib/queryGenerator');
-const models = require('../models');
-
-// The model we're creating the materialized view for
-const referenceModel = models.Film;
-
-const materializedViewName = 'film_materialized_view';
-
-const attributes = { // field: weight. Every field has a weight to calculate how relevant the search results are.
-   name: 'A', // name has the highest weight. 
-   description: 'B',
-   city: 'C' // city has a lower weight than title and description
-}
-
-const options = {
-    include: [ // You can also include fields from associated models
-        {
-            model: models.Person,
-            foreignKey: 'person_id',
-            targetKey: 'id',
-            associationType: 'belongsTo', // association types are: belongsTo, hasOne, or hasMany
-            attributes: { // Those attributes get added to the materialized view's search document and will also be searched just like the other fields
-              first_name: 'D',
-              last_name: 'D',
-              date_of_birth: 'D'
-            }
-        }
-    ]
-}
-module.exports: {
-    up: queryInterface => QueryGenerator.createMaterializedView(queryInterface, materializedViewName, referenceModel, attributes, options),
-    
-    down: queryInterface => QueryGenerator.dropMaterializedView(queryInterface, materializedViewName)
-}
+npm start
 ```
 
-Here are the options that you can pass to the `createMaterializedView` method: 
-
-- `tableName`: You can pass the tableName of the reference model.
-- `include`: An array of the associated models' fields to add to the materialized view.
-
-If you don't use the sequelize migration tool, feel free to create the materialized view in whatever way you prefer.
-
-### 2. Define Materialized View Model
-
-Define the model of your materialized view the same way you define any other sequelize models. The only difference is that you need to add `referenceModel` property to your model definition options. Then just construct a `SearchModel` out of the materialized view model you just defined.
+If you have docker installed on your machine, you can run the postgres server locally and then run the migrations on it by running:
 
 ```js
-let FilmMaterializedView = sequelize.define('FilmMaterializedView', {
-    name: DataTypes.STRING,
-    rating: DataTypes.INTEGER,
-    document: DataTypes.TEXT
-}, {
-    referenceModel: models.Film // The model for which we're defining the materialized view
-});
-
-FilmMaterializedView = new SearchModel(FilmMaterializedView); // Adds search, searchByText, and refresh class methods to the model.
+// run the postgres docker container
+npm run start:db
+// Run the migrations
+npm run start:db:migrate
 ```
 
-### 3. That's It!
+# How It Works
 
-Now you can call `materializedViewModel.search(query, options)` or `materializedViewModel.searchByText(query)` to run a full-text search on your model and its associations.
-Don't forget to refresh the materialized view to update it with the latest changes made to your model. One way to do that is to create an afterCreate, afterUpdate, and afterDelete hook on your model to refresh the materialized view:
+Our database design looks like this:
 
-```js
-sequelize.define('Film', attributes, {
-    hooks: {
-        afterCreate: () => FilmMaterializedView.refresh(),
-        afterUpdate: () => FilmMaterializedView.refresh(),
-        afterDelete: () => FilmMaterializedView.refresh()
-    }
-});
-```
 
-Alternatively, you can have a job scheduler that refreshes your materialized view every x amount of time.
+
+We want to be able to search films and customers. But we also want to be able to search for films by actor names or customers by the store they rented the movie from. All of this is defined in the migration files inside the `migrations` directory.
+
+The models in the diagram above are defined in the `models` directory. In the `models/index.js` file, we loop over all the models and call `sequelize.import` on them, then we loop over the defined models to:
+
+1. Create the associations among the models, 
+1. Add the `referenceModel` to the materialized views models,
+1. Make the models with the `search` flag `SearchModel` objects,
+1. And convert the `afterSave` custom hooks into `afterCreate`, `afterUpdate`, and `afterDestroy` hooks. 
+
+Finally, we expose two API endpoints `/film/:query` and `/customer/:query` and we start the express server on port `3000`
