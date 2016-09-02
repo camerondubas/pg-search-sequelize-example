@@ -25,6 +25,8 @@ npm run start:db
 npm run start:db:migrate
 ```
 
+That's it. Now you can open your browser and navigate to `localhost:3000/film/apollo` or `localhost:3000/customer/Mary activeBoolean:true`. Go nuts!
+
 # How It Works
 
 Our database design looks like this:
