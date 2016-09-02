@@ -32,6 +32,9 @@
     "url": "https://github.com/mujz/pg-search-sequelize-example/issues"
   },
   "homepage": "https://github.com/mujz/pg-search-sequelize-example#readme",
+  "engines": {
+    "node": "6.2.2"
+  },
   "dependencies": {
     "express": "~4.14.0",
     "pg": "~6.1.0",
