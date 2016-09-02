@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "start:db": "docker run -p=5432:5432 mujz/postgres-pagila",
+    "start:db": "docker run -p=5432:5432 mujz/pagila",
     "start:db:migrate": "sequelize db:migrate --migrations-path ./migrations/ --config ./config/sequelize.js",
     "start:db:migrate-undo": "sequelize db:migrate:undo --migrations-path ./migrations/ --config ./config/sequelize.js",
     "test": "mocha test.js"
