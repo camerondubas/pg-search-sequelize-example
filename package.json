@@ -4,6 +4,8 @@
   "description": "A library that uses sequelize and postgres fulltext search",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "start:db": "docker run -p=5432:5432 mujz/postgres-pagila",
     "start:db:migrate": "sequelize db:migrate --migrations-path ./migrations/ --config ./config/sequelize.js",
     "start:db:migrate-undo": "sequelize db:migrate:undo --migrations-path ./migrations/ --config ./config/sequelize.js",
     "test": "mocha test.js"
@@ -31,7 +33,6 @@
   },
   "homepage": "https://github.com/mujz/sequelize-postgres-search#readme",
   "dependencies": {
-    "debug": "~2.2.0",
     "express": "~4.14.0",
     "pg": "~6.1.0",
     "pg-search-sequelize": "0.0.2",
