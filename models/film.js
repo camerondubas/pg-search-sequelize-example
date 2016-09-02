@@ -36,7 +36,17 @@ module.exports = (sequelize, DataTypes) => {
           },
           otherKey: 'store_id'
         });
+        film.belongsToMany(models.Actor, {
+          through: models.FilmActor,
+          as: 'Actors',
+          foreignKey: {
+            name: 'film_id',
+            allowNull: false
+          },
+          otherKey: 'actor_id'
+        });
         film.hasMany(models.Inventory, { foreignKey: { name: 'film_id', allowNull: false } });
+        film.hasMany(models.FilmActor, { foreignKey: { name: 'film_id', allowNull: false } });
         film.belongsTo(models.Language, { as: 'Language', foreignKey: { name: 'language_id', allowNull: false } });
         film.belongsTo(models.Language, { as: 'OriginalLanguage', foreignKey: 'original_language_id' });
       }

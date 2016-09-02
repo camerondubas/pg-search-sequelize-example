@@ -23,6 +23,22 @@ module.exports = {
         }
       },
       {
+        model: models.FilmActor,
+        foreignKey: 'film_id',
+        targetKey: 'film_id',
+        associationType: 'hasMany',
+        include: {
+          model: models.Actor,
+          foreignKey: 'actor_id',
+          targetKey: 'actor_id',
+          associationType: 'belongsTo',
+          attributes: {
+            first_name: 'B',
+            last_name: 'B'
+          }
+        }
+      },
+      {
         model: models.Language,
         as: 'original_language',
         targetKey: 'language_id',

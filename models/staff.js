@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: models => {
         staff.belongsTo(models.Address, { foreignKey: { name: 'address_id', allowNull: false } });
-        staff.belongsTo(models.Store, { foreignKey: { name: 'store_id', allowNull: false } })
+        staff.belongsTo(models.Store, { foreignKey: { name: 'store_id', allowNull: false } });
+        staff.hasMany(models.Store, { foreignKey: { name: 'manager_store_i', allowNull: false } });
       }
     }
   });
