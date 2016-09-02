@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mujz/sequelize-postgres-search.git"
+    "url": "git+https://github.com/mujz/pg-search-sequelize-example.git"
   },
   "keywords": [
     "fulltext",
@@ -29,9 +29,9 @@
   "author": "Mujtaba Al-Tameemi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mujz/sequelize-postgres-search/issues"
+    "url": "https://github.com/mujz/pg-search-sequelize-example/issues"
   },
-  "homepage": "https://github.com/mujz/sequelize-postgres-search#readme",
+  "homepage": "https://github.com/mujz/pg-search-sequelize-example#readme",
   "dependencies": {
     "express": "~4.14.0",
     "pg": "~6.1.0",

@@ -1,4 +1,4 @@
-# PG Search - Sequelize Example
+# PG Search Sequelize - Example
 
 Demonstration of how to use the `pg-search-sequelize` library search a film stores database's films and customers.
 
