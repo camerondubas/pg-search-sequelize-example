@@ -29,7 +29,7 @@ npm run start:db:migrate
 
 Our database design looks like this:
 
-
+<img width="1187" alt="Database Diagram" src="https://cloud.githubusercontent.com/assets/12049480/18189524/8d5f6eae-7070-11e6-99eb-48b55dd2407f.png">
 
 We want to be able to search films and customers. But we also want to be able to search for films by actor names or customers by the store they rented the movie from. All of this is defined in the migration files inside the `migrations` directory.
 
